@@ -81,20 +81,21 @@
 
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm"> 
-                                    <form method="post" >
+                                    <form method="post" action="{{ url('/') }}" >
+                                    {{csrf_field()}}
 
                                         <table>
                                             <tr>
                                                 <td>ID</td>
-                                                <td><input type="text" name="id"></td>
+                                                <td><input type="text" name="id"  value="{{ old('id') }}"></td>
                                             </tr>
                                             <tr>
                                                 <td>Comment</td>
-                                                <td><input type="text" name="comment"></td>
+                                                <td><input type="text" name="comment" value="{{ old('comment') }}"></td>
                                             </tr>
                                             <tr>
                                                 <td>Password</td>
-                                                <td><input type="password" name="password"></td>
+                                                <td><input type="password" name="password" value="{{ old('password') }}"></td>
                                             </tr>
                                             <tr>
                                                 <td></td>
@@ -103,6 +104,15 @@
                                         </table>
                                        
                                     </form>
+                                    @if ($errors->any())
+                                        <div style="color:red;">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     
                                 </div>
                             </div>

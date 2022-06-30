@@ -41,4 +41,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Function to append comment to user
+     * 
+     * @param   String  $comment
+     * 
+     * @return void
+     */
+    public function appendComment($comment){
+
+        $newComment = $this->comments . PHP_EOL . $comment;
+        $this->comments = $newComment;
+        $this->save();
+    }
+
 }

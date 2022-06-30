@@ -14,6 +14,15 @@ use App\Http\Controllers\UserController;
 |
 */
 
+/**
+ * ------------------------------------------------------------------------
+ * Get Routes
+ * ------------------------------------------------------------------------
+ */
+
+/**
+ * Route to view Home page where the user list is shown
+ */
 Route::get('/',  [UserController::class, 'list']);
 
 /**
@@ -21,3 +30,17 @@ Route::get('/',  [UserController::class, 'list']);
  * @param   id  Int             id of the user
  */
 Route::get('/user/{id}',  [UserController::class, 'show']);
+
+
+
+
+/**
+ * ------------------------------------------------------------------------
+ * Post Routes
+ * ------------------------------------------------------------------------
+ */
+
+/**
+ * Route to Home page post
+ */
+Route::post('/',  [UserController::class, 'addComment']);

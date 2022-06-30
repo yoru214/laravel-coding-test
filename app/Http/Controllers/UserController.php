@@ -32,5 +32,33 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Function to add comment to user
+     * 
+     * @param Illuminate\Http\Request
+     */
+    public function addComment(Request $request) {
+
+        $postData = $request->post();
+        // Validate input
+        $validated = $request->validate([
+            'id' => 'required|integer|exists:users,id',
+            'password' => 'required',
+            'comment' => 'required'
+        ]);
+        // validate if password is correct
+        if($validated['password'] != '12345678') {
+            return redirect('/')
+                ->withErrors(['Invalid Password']);
+        } 
+
+        $user = User::find($validated['id']);
+
+        $user->appendComment($validated['comment']);
+
+        // Redirects to the user page if no error
+        return redirect('/user/'.$validated['id']);
+    }
+
     
 }
