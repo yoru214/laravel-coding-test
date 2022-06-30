@@ -44,50 +44,51 @@
                         </g>
                     </svg>
                 </div>
-                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg" style="min-width:640px;">
+
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div class="p-6">
                             <div class="flex items-center">
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a  class="text-gray-900 dark:text-white">Users</a></div>
-                            </div>
-
-                            <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
-                                <table width="100%" style="border:1px solid gray" cellpadding="5px"  >
-                                    <thead>
-                                        <tr>
-                                            <th style="border:1px solid gray">ID</th>
-                                            <th  style="border:1px solid gray">Name</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($users as $user)
-                                        <tr>
-                                            <td text-align="center" width="50px" style="border:1px solid gray; text-align:center;"><a href="/user/1">{{ $user["id"] }}</a></td>
-                                            <td style="border:1px solid gray" ><a href="/user/{{ $user['id'] }}">{{ $user["name"] }}</a></td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                    
+                                <div class="ml-4 text-lg leading-7 font-semibold">
+                                    <div>
+                                        <a class="text-gray-900 dark:text-white">{{ $user["name"] }}</a>
+                                    </div>
                                 </div>
                             </div>
+
+                            
                         </div>
 
                         <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
                             <div class="flex items-center">
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a  class=" text-gray-900 dark:text-white">Add Comment</a></div>
+                                
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="/" class="underline text-gray-900 dark:text-white pull-right">Back to User List</a></div>
+                            </div>
+
+                           
+                        </div>
+
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700">
+                            <div class="flex items-center">
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="https://laravel-news.com/" class="text-gray-900 dark:text-white">Comments</a></div>
                             </div>
 
                             <div class="ml-12">
-                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm"> 
-                                    <form method="post" >
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    {!! nl2br($user["comments"]) !!}
+                                </div>
+                            </div>
+                        </div>
 
-                                        <table>
-                                            <tr>
-                                                <td>ID</td>
-                                                <td><input type="text" name="id"></td>
-                                            </tr>
+                        <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-l">
+                            <div class="flex items-center">
+                                <div class="ml-4 text-lg leading-7 font-semibold text-gray-900 dark:text-white">Add Comment</div>
+                            </div>
+
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    <form method="post" >
+                                    <table>
                                             <tr>
                                                 <td>Comment</td>
                                                 <td><input type="text" name="comment"></td>
@@ -101,13 +102,11 @@
                                                 <td><button type="submit"> Submit </button></td>
                                             </tr>
                                         </table>
-                                       
                                     </form>
-                                    
+                                   
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
