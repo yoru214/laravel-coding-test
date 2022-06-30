@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  php:
+    container_name: ${APP_NAME}_php
+    build:
+      context: ./docker_data/php
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www/app
+  db:
+    container_name: ${APP_NAME}_db
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=homestead
+      - POSTGRES_DB=homestead
+
+networks:
+  default:
+    name: 'pictureworks-test'
