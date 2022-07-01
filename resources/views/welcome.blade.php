@@ -79,11 +79,12 @@
                                 <div class="ml-4 text-lg leading-7 font-semibold"><a  class=" text-gray-900 dark:text-white">Add Comment</a></div>
                             </div>
 
+                            
                             <div class="ml-12">
                                 <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm"> 
                                     <form method="post" action="{{ url('/') }}" >
                                     {{csrf_field()}}
-
+                                        <h3>Form Submit</h3>
                                         <table>
                                             <tr>
                                                 <td>ID</td>
@@ -98,13 +99,42 @@
                                                 <td><input type="password" name="password" value="{{ old('password') }}"></td>
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td><button type="submit"> Submit </button></td>
+                                                <td width="75px"></td>
+                                                <td><button type="submit" name="form_submit"> Submit </button></td>
                                             </tr>
                                         </table>
                                        
                                     </form>
-                                    @if ($errors->any())
+                                    @if ($errors->any() && session()->get('form_submit') )
+                                        <div style="color:red;">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                    
+                                </div>
+                                
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm"> 
+                                    <form method="post" action="{{ url('/') }}" >
+                                    {{csrf_field()}}
+
+                                        <h3>JSON Submit</h3>
+                                        <table>
+                                            <tr>
+                                                <td>JSON Data</td>
+                                                <td><textarea name="id" cols="40" rows="10"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="75px"></td>
+                                                <td><button type="submit" name="json_submit"> Submit </button></td>
+                                            </tr>
+                                        </table>
+                                       
+                                    </form>
+                                    @if ($errors->any() && session()->get('json_submit'))
                                         <div style="color:red;">
                                             <ul>
                                                 @foreach ($errors->all() as $error)

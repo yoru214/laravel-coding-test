@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Session;
 
 class UserController extends Controller
 {
@@ -40,12 +42,57 @@ class UserController extends Controller
     public function addComment(Request $request) {
 
         $postData = $request->post();
-        // Validate input
-        $validated = $request->validate([
-            'id' => 'required|integer|exists:users,id',
-            'password' => 'required',
-            'comment' => 'required'
-        ]);
+
+        /**
+         * Checks whether which form the post is submitted
+         * This is necessary to be able to know which error fields needs to be shown
+         */
+        if(array_key_exists('form_submit',$postData)){
+            session(['form_submit' => true]);
+        } else {
+            session(['form_submit' => false]);
+        }
+        if(array_key_exists('json_submit',$postData)){    
+            session(['json_submit' => true]);       
+        } else {
+            session(['json_submit' => false]);
+        }
+
+        /**
+         * Loops to all fields submitted if there is any JSON
+         * If JSON is found, converts to array then validates
+         */
+        foreach($postData as $key => $value) {
+            $validated = json_decode($value, true);
+
+            if (json_last_error() === JSON_ERROR_NONE) {
+               
+                if(\is_array($validated)) {
+                    $validator = Validator::make($validated, [
+                        'id' => 'required|integer|exists:users,id',
+                        'password' => 'required',
+                        'comment' => 'required'
+                    ]);
+
+                    break;
+                }
+                
+            }
+
+        }
+
+        /***
+         * In case no JSON data is submotted via post, 
+         * then checks the  post data instead.
+         */
+        if(!isset($validated)) {
+            // Validate input
+            $validated = $request->validate([
+                'id' => 'required|integer|exists:users,id',
+                'password' => 'required',
+                'comment' => 'required'
+            ]);
+        }
         // validate if password is correct
         if($validated['password'] != '12345678') {
             return redirect('/')
